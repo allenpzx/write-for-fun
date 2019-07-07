@@ -37,19 +37,6 @@ export default class extends React.Component {
             show
           </Button>
         </div>
-        {/* <Transition in={this.state.inProp} timeout={500}>
-          {state => (
-            <ul className={`fade fade-${state}`}>
-              <TransitionGroup className="todo-list">
-                {this.state.list.map(v => (
-                  <CSSTransition key={v} timeout={500} classNames="item">
-                    <li>{v}</li>
-                  </CSSTransition>
-                ))}
-              </TransitionGroup>
-            </ul>
-          )}
-        </Transition> */}
 
         <Transition in={this.state.inProp} timeout={500}>
           {state => (

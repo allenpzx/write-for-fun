@@ -43,24 +43,34 @@ export default function ConcurrentRequest() {
     let list = [];
     let index = 0;
 
-    return function loop(){
-        console.log('loop======', '[current]-', current, '[index]-', index, '[list]-', list);
-        if(urls.length === list.length){
-            console.log('finished');
-            callback(list)
-        }
-        while(index < urls.length && current < limit){
-            current++
-            fetch(urls[index]).then(res=>res.json()).then(res=>{
-                if(list.push(res)){
-                    current--
-                    loop();
-                }
-            });
-            index++
-            loop();
-        }
-    }
+    return function loop() {
+      console.log(
+        "loop======",
+        "[current]-",
+        current,
+        "[index]-",
+        index,
+        "[list]-",
+        list
+      );
+      if (urls.length === list.length) {
+        console.log("finished");
+        callback(list);
+      }
+      while (index < urls.length && current < limit) {
+        current++;
+        fetch(urls[index])
+          .then(res => res.json())
+          .then(res => {
+            if (list.push(res)) {
+              current--;
+              loop();
+            }
+          });
+        index++;
+        loop();
+      }
+    };
   }
 
   const reset = () => setShow([]);
@@ -89,7 +99,11 @@ export default function ConcurrentRequest() {
         renderItem={item => (
           <List.Item>
             {item.show.name}{" "}
-            <img style={{ height: "5rem" }} src={item.show.image.medium} alt='' />
+            <img
+              style={{ height: "5rem" }}
+              src={item.show.image.medium}
+              alt=""
+            />
           </List.Item>
         )}
       />
