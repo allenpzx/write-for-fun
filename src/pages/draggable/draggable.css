@@ -27,6 +27,7 @@ html, body {
   align-items: center;
   flex-direction: column;
   position: relative;
+  margin-bottom: 1rem;
 }
 
 .card {
@@ -34,23 +35,18 @@ html, body {
   height: 90px;
   overflow: visible;
   pointer-events: auto;
-  transform-origin: 50% 50% 0px;
+  /* transform-origin: 50% 50% 0px; */
   border-radius: 5px;
   color: white;
   line-height: 90px;
   padding-left: 32px;
   font-size: 14.5px;
   background: lightblue;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   letter-spacing: 2px;
   margin-bottom: 10px;
-  transition: all 0.3s;
+  /* transition: all 0.3s; */
   box-shadow: 1px 1px 2px 0px #cccccc
-}
-
-.card:active {
-  transform: scale(1.2, 1.2);
-  box-shadow: 0 0 5px 0 #cccccc
 }
 
 .container > .card1 {
@@ -64,25 +60,4 @@ html, body {
 }
 .container > .card4 {
   background: linear-gradient(135deg, #c3cfe2 0%, #c3cfe2 100%);
-}
-
-.p1 {
-  color: blue;
-  font-weight: 800;
-  margin-bottom: 2rem;
-}
-
-.p1:hover {
-  animation: animationName1 2s infinite alternate;
-}
-
-@keyframes animationName1 {
-  0%{
-    color: red;
-    font-size: 1rem;
-  }
-  100% {
-    color: yellow;
-    font-size: 10rem;
-  }
 }
