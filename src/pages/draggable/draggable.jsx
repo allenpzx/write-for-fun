@@ -1,55 +1,43 @@
 import React from "react";
-import { Card } from "antd";
+import { Card, Button } from "antd";
+import { sortableContainer, sortableElement } from "react-sortable-hoc";
+import ShuffleAnimate from 'shuffle-animate';
 import "./draggable.css";
 
-class Draggable extends React.Component {
+const SortableItem = sortableElement(({ value }) => (
+  <div className={`card card${value.id}`}>{value.data}</div>
+));
+
+const SortableContainer = sortableContainer(({ children }) => (
+  <div className="container">{children}</div>
+));
+
+function arrayMove(array, oldIndex, newIndex) {
+  [array[oldIndex], array[newIndex]] = [array[newIndex], array[oldIndex]];
+  return array;
+}
+
+export default class Draggable extends React.Component {
   state = {
     list: [
       { id: 1, data: "1 data" },
       { id: 2, data: "2 data" },
       { id: 3, data: "3 data" },
       { id: 4, data: "4 data" }
-    ],
-    dragStart: null,
-    dragEnter: null
+    ]
   };
 
-  onDragStart = index => e => {
-    // console.log("onDragStart: ", index);
-    this.setState({ dragStart: index });
+  onSortEnd = ({ oldIndex, newIndex }) => {
+    this.setState(({ list }) => ({
+      list: arrayMove(list, oldIndex, newIndex)
+    }));
   };
 
-  onDrag = index => e => {
-    // console.log('onDrag: ', index);
+  random = e => {
+    const container = document.getElementsByClassName('container')[0];
+    const sa = new ShuffleAnimate({data: [...container.children]});
+    sa.update({ ease: 'easeInOutCirc', time: '1000ms' });
   }
-
-  onDragEnd = index => async e => {
-    // console.log("onDragEnd: ", index);
-    this.setState({ dragStart: null, dragEnter: null })
-  };
-
-  onDragEnter = index => e => {
-    // console.log("onDragEnter: ", index);
-    this.setState({ dragEnter: index });
-  };
-
-  onDragOver = index => e => {
-    // console.log('onDragOver: ', index);
-  }
-
-  onDragLeave = current => e => {
-    // console.log('leave')
-    const { dragStart, list } = this.state;
-    if (dragStart === current) return;
-    const startIndex = list.findIndex(i => i.id === dragStart);
-    const currentIndex = list.findIndex(i => i.id === current);
-
-    [list[startIndex], list[currentIndex]] = [
-      list[currentIndex],
-      list[startIndex]
-    ];
-    this.setState({ list });
-  };
 
   render() {
     const { list } = this.state;
@@ -69,24 +57,20 @@ class Draggable extends React.Component {
     //   console.log(distanceY)
     //   return { transform: `translateY(${distanceY})px`}
     // }
+    console.log(list);
     return (
       <Card className="draggable">
-        <div className="container">
-          {list.map(item => (
-            <div
-              key={item.id}
-              draggable
-              {...gestureEvent(item.id)}
-              className={`card card${item.id}`}
-              // style={move(item.id)}
-            >
-              {item.data}
-            </div>
+        <SortableContainer ref={current=>this.container=current} onSortEnd={this.onSortEnd}>
+          {list.map((value, index) => (
+            <SortableItem
+              key={`item-${index}`}
+              index={index}
+              value={value}
+            />
           ))}
-        </div>
+        </SortableContainer>
+        <Button onClick={this.random}>random</Button>
       </Card>
     );
   }
 }
-
-export default Draggable;
