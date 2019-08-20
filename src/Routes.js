@@ -1,5 +1,5 @@
 import CateLog from './pages/index.jsx';
-import Animation from "./pages/animate/animation.tsx";
+import Animation from "./pages/animate/animation.jsx";
 import Todo from "./pages/todo.jsx";
 import AsyncCancel from './pages/async-cancel.jsx';
 import WaterFall from './pages/water-fall.jsx';

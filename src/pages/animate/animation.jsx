@@ -17,7 +17,7 @@ class Animation extends React.Component {
       .then(res => this.setState({ list: res.data }));
   };
 
-  handleDetail = e => {
+  handleDetail = (e: Object) => {
     const { id } = e.target.dataset;
     if (!id) return;
     this.setState(prev => ({
