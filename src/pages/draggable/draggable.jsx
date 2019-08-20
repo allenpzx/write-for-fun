@@ -52,7 +52,7 @@ class Draggable extends React.Component {
   };
 
   render() {
-    const { list, dragStart, dragEnter } = this.state;
+    const { list } = this.state;
     const gestureEvent = id => ({
       onDragStart: this.onDragStart(id),
       onDragEnd: this.onDragEnd(id),

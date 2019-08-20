@@ -6,15 +6,15 @@ import { Button, Input } from 'antd';
 const Search = Input.Search;
 
 const Page = styled.div`
-    width: 100vw;
-    height: 100vh;
+    // width: 100vw;
+    // height: 100vh;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    box-sizing: border-box;
+    // box-sizing: border-box;
 
     button{
         margin: 0 10px 0 0;
@@ -22,8 +22,8 @@ const Page = styled.div`
 `;
 
 const Layout = styled.div`
-    width: 80vw;
-    padding: 1rem 2rem;
+    // width: 80vw;
+    // padding: 1rem 2rem;
 `;
 
 const getVisibleTodos = (todos, filter) => {

@@ -1,34 +1,27 @@
 import React from "react";
-import styled from "styled-components";
+import { withRouter } from "react-router-dom";
 
-const ContainerDiv = styled.div`
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  width: 100vw;
-  min-height: 100vh;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: ${props => props.justifyContent || "flex-start"};
-  align-items: center;
-  box-sizing: border-box;
-`;
+export default function withLayout(WrappedComponent) {
+  @withRouter
+  class Container extends React.Component {
 
-export default class Container extends React.Component {
-  state = {
-    collapsed: false
-  };
+    componentDidUpdate(prevProps) {
+      if (this.props.location.pathname !== prevProps.location.pathname) {
+        window.scroll({
+          top: 0,
+          left: 0,
+          behavior: 'smooth'
+        });
+      }
+    }
 
-  toggle = () => {
-    this.setState({
-      collapsed: !this.state.collapsed
-    });
-  };
-
-  render() {
-    return (
-        <ContainerDiv {...this.props}>{this.props.children}</ContainerDiv>
-    );
+    render() {
+      const { forwardedRef, ...props } = this.props;
+      return <WrappedComponent ref={forwardedRef} {...props} />;
+    }
   }
+
+  return React.forwardRef((props, ref) => (
+    <Container {...props} forwardedRef={ref} />
+  ));
 }

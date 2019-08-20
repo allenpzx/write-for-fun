@@ -10,6 +10,11 @@ const testD3 = async () => {
 }
 
 export default class A extends React.Component{
+
+    specialA = () => {
+        console.log('this is special A function');
+    }
+
     render(){
         return (
             <div>

@@ -57,7 +57,7 @@ export default function ConcurrentRequest() {
         console.log("finished");
         callback(list);
       }
-      while (index < urls.length && current < limit) {
+      if (index < urls.length && current < limit) {
         current++;
         fetch(urls[index])
           .then(res => res.json())
